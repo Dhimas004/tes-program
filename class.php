@@ -89,4 +89,38 @@ class peserta extends database
   {
     return $this->showAllData("SELECT * FROM tbl_peserta pa JOIN tbl_nilai nl ON pa.nilai = nl.id_nilai");
   }
+
+  public function hapus_peserta($id_peserta)
+  {
+    $this->query("DELETE FROM tbl_peserta WHERE id_peserta = '$id_peserta'");
+  }
+
+  public function edit_peserta($data)
+  {
+    $id_nilai = $data['id_nilai'];
+    $id_peserta = $data['id_peserta'];
+    $nama = $data['nama'];
+    $email_peserta = $data['email_peserta'];
+    $nilai_x = $data['nilai_x'];
+    $nilai_y = $data['nilai_y'];
+    $nilai_z = $data['nilai_z'];
+    $nilai_w = $data['nilai_w'];
+    $this->query("UPDATE
+      tbl_peserta
+    SET
+      `nama_peserta` = '$nama',
+      `email_peserta` = '$email_peserta'
+    WHERE `id_peserta` = '$id_peserta';
+    ");
+
+    $this->query("UPDATE
+    tbl_nilai
+    SET
+    `nilai_x` = '$nilai_x',
+    `nilai_y` = '$nilai_y',
+    `nilai_z` = '$nilai_z',
+    `nilai_w` = '$nilai_w'
+    WHERE `id_nilai` = '$id_nilai';
+    ");
+  }
 }
