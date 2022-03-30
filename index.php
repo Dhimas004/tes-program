@@ -1,22 +1,7 @@
 <?php
-include './class.php';
-$database = new database;
+include './header.php';
 ?>
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-</head>
-
-<body class="d-flex justify-content-around">
+<div class="d-flex justify-content-around">
     <div>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
@@ -55,12 +40,14 @@ $database = new database;
         </div>
     </div>
     <div>
+        <?php
+        ?>
         <table class="table table-bordered">
             <tr>
-                <td style="vertical-align: middle;" rowspan="2">Nama</td>
-                <td style="vertical-align: middle;" rowspan="2">Email</td>
+                <td style="vertical-align: middle; text-align:center;" rowspan="2">Nama</td>
+                <td style="vertical-align: middle; text-align:center;" rowspan="2">Email</td>
                 <td style="text-align: center" colspan="4">Nilai</td>
-                <td style="vertical-align: middle;" rowspan="2">Action</td>
+                <td style="vertical-align: middle; text-align:center;" rowspan="2">Action</td>
             </tr>
             <tr>
                 <td>X</td>
@@ -68,31 +55,38 @@ $database = new database;
                 <td>Z</td>
                 <td>W</td>
             </tr>
-            <tr>
-                <td>Dhimas Yudhatama</td>
-                <td>dimasyudhatama98@gmail.com</td>
-                <td>12</td>
-                <td>12</td>
-                <td>12</td>
-                <td>12</td>
-                <td>Lihat Laporan|Edit|Hapus</td>
-            </tr>
+            <?php
+            foreach ($peserta->get() as $valuePeserta) :
+            ?>
+                <tr>
+                    <td style="vertical-align: middle;"><?= $valuePeserta['nama_peserta']; ?></td>
+                    <td style="vertical-align: middle;"><?= $valuePeserta['email_peserta']; ?></td>
+                    <td style="vertical-align: middle;"><?= $valuePeserta['nilai_x']; ?></td>
+                    <td style="vertical-align: middle;"><?= $valuePeserta['nilai_y']; ?></td>
+                    <td style="vertical-align: middle;"><?= $valuePeserta['nilai_z']; ?></td>
+                    <td style="vertical-align: middle;"><?= $valuePeserta['nilai_w']; ?></td>
+                    <td>
+                        <a class="btn btn-primary" href="laporan.php?id=<?= $valuePeserta['id_peserta'] ?>" onclick="window.open(this.href,'targetWindow',
+                                   `toolbar=no,
+                                    location=no,
+                                    status=no,
+                                    menubar=no,
+                                    scrollbars=yes,
+                                    resizable=yes,
+                                    width=500,
+                                    height=500`);
+ return false;">Lihat Laporan</a>
+                        <button class="btn btn-warning">Edit</button>
+                        <button class="btn btn-danger">Hapus</button>
+                    </td>
+                </tr>
+            <?php
+            endforeach;
+            ?>
             <tr>
         </table>
     </div>
-
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
-</body>
-
-</html>
+</div>
+<?php
+include './footer.php';
+?>
